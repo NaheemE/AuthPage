@@ -1,10 +1,34 @@
-import { StyleSheet, View, Image, StatusBar, Text, TextInput, Pressable } from 'react-native'
-import React from 'react'
+import { StyleSheet, View, Image, StatusBar, Text, Pressable, Alert } from 'react-native'
+import React, { useState } from 'react'
 import logo from '../Assets/pngwing.com.png';
 import Input from '../Components/Input';
 import Btn from '../Components/Btn';
+import { loginAPI } from '../Services/allAPI';
 
 export default Login = ({ navigation }) => {
+
+
+    const [loginDetails, setLoginDetails] = useState({
+        email: '',
+        password: ''
+    })
+
+    const handleLogin = async () => {
+        const { email, password } = loginDetails
+        if (!email || !password) {
+            Alert.alert('Please fill the form completely!')
+        }
+        else {
+            const response = await loginAPI(loginDetails)
+            // console.log(response.data);
+            if (response.status === 200) {
+                Alert.alert('LoggedIn successfully')
+            } else {
+                Alert.alert('Something went wrong!')
+            }
+        }
+    }
+
 
     return (
         <View style={styles.container}>
@@ -19,10 +43,10 @@ export default Login = ({ navigation }) => {
                 {/* form */}
                 <View style={styles.form}>
                     {/* TextInputs */}
-                    <Input>Email</Input>
-                    <Input secureTextEntry>Password</Input>
+                    <Input value={loginDetails.email} onChangeText={(value) => { setLoginDetails({ ...loginDetails, email: value }) }}>Email</Input>
+                    <Input value={loginDetails.password} onChangeText={(value) => { setLoginDetails({ ...loginDetails, password: value }) }} secureTextEntry>Password</Input>
                     {/* Button */}
-                    <Btn>Login</Btn>
+                    <Btn onPress={handleLogin}>Login</Btn>
                 </View>
             </View>
             <View style={styles.footer}>

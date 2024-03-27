@@ -11,7 +11,7 @@ export default Btn = ({ children, onPress }) => {
 
 const styles = StyleSheet.create({
   button: {
-    height: 80,
+    height: 70,
     backgroundColor: 'black',
     borderRadius: 10,
     borderTopEndRadius: 0,
