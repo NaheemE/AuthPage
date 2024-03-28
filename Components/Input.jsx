@@ -5,7 +5,7 @@ export default Input = ({ children, secureTextEntry, value, onChangeText }) => {
     return (
         <View style={styles.input}>
             <Text style={{ color: 'black', fontSize: 20 }}>{children}</Text>
-            <TextInput value={value} onChangeText={onChangeText} secureTextEntry={secureTextEntry} style={{ backgroundColor: 'white', fontSize: 15, height: 40 }} />
+            <TextInput value={value} onChangeText={onChangeText} secureTextEntry={secureTextEntry} style={styles.text} />
         </View>
     )
 }
@@ -18,4 +18,10 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         borderRadius: 10,
     },
+    text: {
+        backgroundColor: 'white',
+        fontSize: 15,
+        height: 40,
+        color: 'black'
+    }
 })
