@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './Screens/Login';
 import Register from './Screens/Register';
 import StartScreen from './Screens/StartScreen';
+import Products from './Screens/Products';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import Loader from './Components/Loader';
@@ -35,6 +36,7 @@ export default function App() {
           isFirst ? (<>
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+            <Stack.Screen name="Products" component={Products} options={{ headerShown: false }} />
           </>) : (
             <>
               <Stack.Screen name="StartScreen" component={StartScreen} options={{ headerShown: false }} />

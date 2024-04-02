@@ -1,6 +1,6 @@
-import { StyleSheet, View, Image, StatusBar, Text, Pressable, Alert, ScrollView, Dimensions } from 'react-native'
+import { StyleSheet, View, Image, StatusBar, Text, Pressable, Alert, ScrollView, Dimensions, Button } from 'react-native'
 import React, { useState } from 'react'
-import logo from '../Assets/pngwing.com.png';
+import logo from '../Assets/images/pngwing.com.png';
 import Input from '../Components/Input';
 import Btn from '../Components/Btn';
 import { loginAPI } from '../Services/allAPI';
@@ -50,6 +50,7 @@ const Login = ({ navigation }) => {
                         <Input value={loginDetails.password} onChangeText={(value) => { setLoginDetails({ ...loginDetails, password: value }) }} secureTextEntry>Password</Input>
                         {/* Button */}
                         <Btn onPress={handleLogin}>Login</Btn>
+                        <Button title='products' onPress={() => navigation.navigate('Products')} />
                     </View>
                     <View style={styles.footer}>
                         <Pressable onPress={() => navigation.navigate("Register")}>

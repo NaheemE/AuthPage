@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable, ImageBackground, Dimensions, StatusBar } from 'react-native'
 import React from 'react'
-import coffeeImage from '../Assets/coffee.png'
+import coffeeImage from '../Assets/images/coffee.png'
 import { LinearGradient } from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
