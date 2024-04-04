@@ -1,11 +1,17 @@
 import { StyleSheet, Text, View, Pressable, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
-export default CategoryBtn = ({ children }) => {
+export default CategoryBtn = ({ children, setCategory, selected }) => {
+
+    const pressed = () => {
+        setCategory(children)
+        console.log(`pressed  ${children}`)
+    }
+
     return (
-        <View style={styles.button}>
-            <Pressable style={{ paddingHorizontal: 15, }}>
-                <Text style={{ fontFamily: "Sora-SemiBold", color: 'white' }}>{children}</Text>
+        <View style={[styles.button, { backgroundColor: selected ? '#c58b4e' : 'white' }]}>
+            <Pressable style={{ paddingHorizontal: 15 }} onPress={pressed} >
+                <Text style={{ fontFamily: "Sora-SemiBold", color: selected ? 'white' : 'grey' }}>{children}</Text>
             </Pressable>
         </View>
     )
@@ -14,7 +20,6 @@ export default CategoryBtn = ({ children }) => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#c58b4e',
         borderRadius: 15,
         height: 45,
         marginTop: 25,

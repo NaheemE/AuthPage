@@ -62,6 +62,7 @@ export default function App() {
 }
 
 export function TabNavigator() {
+
   return (
     <Tab.Navigator screenOptions={{
       headerShown: false,
@@ -86,3 +87,4 @@ export function TabNavigator() {
     </Tab.Navigator>
   )
 }
+

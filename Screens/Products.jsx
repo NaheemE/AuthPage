@@ -14,23 +14,49 @@ const sheight = Dimensions.get('screen').height
 export default Products = () => {
 
     const [products, setProducts] = useState([])
+    const [searchQuery, setSearchQuery] = useState('')
+    const [filteredProducts, setFilteredProducts] = useState([])
+    const [category, setCategory] = useState('')
+    // console.log(category.toLowerCase());
+
+
+    // console.log(searchQuery);
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('https://api.sampleapis.com/coffee/hot')
+            let response = null
+            if (category === "") {
+                response = await fetch('https://api.sampleapis.com/coffee/hot')
+            } else {
+                response = await fetch(`https://api.sampleapis.com/coffee/${category.toLowerCase()}`)
+            }
+
             const data = await response.json()
             // console.log(data);
             setProducts(data)
-            // console.log(typeof(products));
-            // console.log(products);
         } catch (e) {
             console.log(e);
         }
     }
 
+
+    const searchFun = (value) => {
+        setSearchQuery(value)
+        setFilteredProducts(
+            products.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()))
+        )
+    }
+
+    // console.log(filteredProducts);
+    // console.log(products);
+
     useEffect(() => {
         fetchProducts()
-    }, [])
+    }, [category])
+
+    useEffect(() => {
+        setFilteredProducts([])
+    }, [searchQuery === ''])
 
     return (
         <>
@@ -49,7 +75,7 @@ export default Products = () => {
                         <LinearGradient start={{ x: 1, y: 0 }} end={{ x: 0, y: 0 }} colors={['#555555', '#444444', '#444444']} style={{ borderRadius: 15 }}>
                             <View style={styles.search}>
                                 <FeatherIcons name='search' color='lightgrey' size={30} />
-                                <TextInput placeholderTextColor='grey' placeholder='Search coffee' style={{ flex: 1, marginHorizontal: 10 }} />
+                                <TextInput placeholderTextColor='grey' placeholder='Search coffee' style={{ flex: 1, marginHorizontal: 10 }} value={searchQuery} onChangeText={(value) => searchFun(value)} />
                                 <FAIcons name='sliders' size={30} style={{ backgroundColor: '#c58b4e', color: 'white', padding: 10, borderRadius: 10 }} />
                             </View>
                         </LinearGradient>
@@ -60,20 +86,25 @@ export default Products = () => {
                     {/* Categories */}
                     <View>
                         <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ marginLeft: 20 }}>
-                            <CategoryBtn>Cappuccino</CategoryBtn>
-                            <CategoryBtn>Machiato</CategoryBtn>
-                            <CategoryBtn>Latte</CategoryBtn>
-                            <CategoryBtn>Americano</CategoryBtn>
+                            <CategoryBtn selected={category === 'Hot' || category === ""} setCategory={setCategory}>Hot</CategoryBtn>
+                            <CategoryBtn selected={category === 'Cappuccino'} setCategory={setCategory}>Cappuccino</CategoryBtn>
+                            <CategoryBtn selected={category === 'Machiato'} setCategory={setCategory}>Machiato</CategoryBtn>
+                            <CategoryBtn selected={category === 'Latte'} setCategory={setCategory}>Latte</CategoryBtn>
+                            <CategoryBtn selected={category === 'Americano'} setCategory={setCategory}>Americano</CategoryBtn>
                         </ScrollView>
                     </View>
                     {/* Products */}
                     <View style={styles.cardContainer}>
                         {
-                            products.map((item, index) => (
-                                <Card details={item} key={index} />
-                            ))
+                            filteredProducts?.length > 0 ?
+                                filteredProducts.map((item, index) => (
+                                    <Card details={item} key={index} />
+                                )) :
+                                products.length > 0 ?
+                                    products.map((item, index) => (
+                                        <Card details={item} key={index} />
+                                    )) : (<Text>Nothing</Text>)
                         }
-
                     </View>
                 </View>
                 <Image source={PromoBanner} style={styles.banner} />
@@ -128,6 +159,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         columnGap: 20,
         flexWrap: 'wrap',
-        rowGap: 20
+        rowGap: 20,
     }
 })
