@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Dimensions, StatusBar, Image, TextInput } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Dimensions, StatusBar, Image, TextInput, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { LinearGradient } from 'react-native-linear-gradient';
 import PromoBanner from '../Assets/images/banner.png'
@@ -6,6 +6,8 @@ import FeatherIcons from 'react-native-vector-icons/Feather'
 import FAIcons from 'react-native-vector-icons/FontAwesome6'
 import CategoryBtn from '../Components/CategoryBtn';
 import Card from '../Components/Card';
+import Loader from '../Components/Loader';
+
 
 
 // const height = Dimensions.get('window').height
@@ -94,17 +96,24 @@ export default Products = () => {
                         </ScrollView>
                     </View>
                     {/* Products */}
-                    <View style={styles.cardContainer}>
+                    <View style={{ marginTop: 20 }}>
                         {
-                            filteredProducts?.length > 0 ?
-                                filteredProducts.map((item, index) => (
-                                    <Card details={item} key={index} />
-                                )) :
-                                products.length > 0 ?
-                                    products.map((item, index) => (
-                                        <Card details={item} key={index} />
-                                    )) : (<Text>Nothing</Text>)
+                            // filteredProducts?.length > 0 ?
+                            //     filteredProducts.map((item, index) => (
+                            //         <Card details={item} key={index} />
+                            //     )) :
+                            //     products.length > 0 ?
+                            //         products.map((item, index) => (
+                            //             <Card details={item} key={index} />
+                            //         )) : (<Text>Nothing</Text>)
                         }
+                        <FlatList columnWrapperStyle={styles.cardContainer}
+                            data={filteredProducts?.length > 0 ? filteredProducts : products}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item, index }) => <Card details={item} key={index} />}
+                            ListEmptyComponent={<Loader />}
+                            numColumns={2}
+                        />
                     </View>
                 </View>
                 <Image source={PromoBanner} style={styles.banner} />
@@ -128,7 +137,7 @@ const styles = StyleSheet.create({
     bottom: {
         minHeight: (sheight - (sheight * 0.3)),
         paddingTop: 60,
-        paddingBottom: 30
+        // paddingBottom: 30
     },
     banner: {
         position: 'absolute',
@@ -153,12 +162,8 @@ const styles = StyleSheet.create({
         paddingRight: 5
     },
     cardContainer: {
-        marginTop: 30,
-        display: 'flex',
-        flexDirection: 'row',
         justifyContent: 'center',
-        columnGap: 20,
-        flexWrap: 'wrap',
-        rowGap: 20,
+        marginBottom: 20,
+        columnGap: 30
     }
 })

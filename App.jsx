@@ -70,19 +70,19 @@ export function TabNavigator() {
     }}>
       <Tab.Screen name="Products" component={Products} options={{
         tabBarIcon: ({ focused }) => (<FIcons name='home' color={focused ? '#c58b4e' : 'grey'} size={30} />),
-        tabBarLabel: ({ focused }) => (focused ? <EntypoIcons name='minus' color={focused ? '#c58b4e' : 'grey'} size={20} /> : null)
+        tabBarLabel: ({ focused }) => (focused ? <EntypoIcons name='minus' color={focused ? '#c58b4e' : 'grey'} size={20} style={{ marginTop: -20 }} /> : null)
       }} />
       <Tab.Screen name="ScreenOne" component={ScreenOne} options={{
         tabBarIcon: ({ focused }) => <IIcons name='heart-half' color={focused ? '#c58b4e' : 'grey'} size={30} />,
-        tabBarLabel: ({ focused }) => (focused ? <EntypoIcons name='minus' color={focused ? '#c58b4e' : 'grey'} size={20} /> : null)
+        tabBarLabel: ({ focused }) => (focused ? <EntypoIcons name='minus' color={focused ? '#c58b4e' : 'grey'} size={20} style={{ marginTop: -20 }} /> : null)
       }} />
       <Tab.Screen name="ScreenTwo" component={ScreenTwo} options={{
         tabBarIcon: ({ focused }) => <FA6cons name='bag-shopping' color={focused ? '#c58b4e' : 'grey'} size={25} />,
-        tabBarLabel: ({ focused }) => (focused ? <EntypoIcons name='minus' color={focused ? '#c58b4e' : 'grey'} size={20} /> : null)
+        tabBarLabel: ({ focused }) => (focused ? <EntypoIcons name='minus' color={focused ? '#c58b4e' : 'grey'} size={20} style={{ marginTop: -20 }} /> : null)
       }} />
       <Tab.Screen name="ScreenThree" component={ScreenThree} options={{
         tabBarIcon: ({ focused }) => <OctiIcons name='bell-fill' color={focused ? '#c58b4e' : 'grey'} size={25} />,
-        tabBarLabel: ({ focused }) => (focused ? <EntypoIcons name='minus' color={focused ? '#c58b4e' : 'grey'} size={20} /> : null)
+        tabBarLabel: ({ focused }) => (focused ? <EntypoIcons name='minus' color={focused ? '#c58b4e' : 'grey'} size={20} style={{ marginTop: -20 }} /> : null)
       }} />
     </Tab.Navigator>
   )
