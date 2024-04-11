@@ -10,7 +10,7 @@ const height = Dimensions.get('screen').height
 export default StartScreen = ({ navigation }) => {
 
     const handleStart = () => {
-        AsyncStorage.setItem('isPressed', JSON.stringify(true))
+        AsyncStorage.setItem('isPressed', 'true')
         // console.log("pressed");
         navigation.navigate('Login')
     }

@@ -23,6 +23,7 @@ const Login = ({ navigation }) => {
             // console.log(response.data);
             if (response.status === 200) {
                 Alert.alert('LoggedIn successfully')
+                navigation.navigate('Homescreen')
             } else {
                 Alert.alert('Something went wrong!')
             }
@@ -50,7 +51,7 @@ const Login = ({ navigation }) => {
                         <Input value={loginDetails.password} onChangeText={(value) => { setLoginDetails({ ...loginDetails, password: value }) }} secureTextEntry>Password</Input>
                         {/* Button */}
                         <Btn onPress={handleLogin}>Login</Btn>
-                        <Button title='products' onPress={() => navigation.navigate('Homescreen')} />
+                        {/* <Button title='products' onPress={() => navigation.navigate('Homescreen')} /> */}
                     </View>
                     <View style={styles.footer}>
                         <Pressable onPress={() => navigation.navigate("Register")}>

@@ -26,9 +26,10 @@ export default function App() {
   const [isFirst, setIsFirst] = useState(null)
 
   const getData = async () => {
-    const data = await AsyncStorage.getItem('isPressed')
-    // console.log(typeof (data) + ' ' + data);
-    setIsFirst(Boolean(data))
+    const data = await AsyncStorage.getItem('isPressed');
+    const parsedData = JSON.parse(data);
+    // console.log(typeof (parsedData) + ' ' + parsedData);
+    setIsFirst(Boolean(parsedData))
   }
 
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function App() {
               <Stack.Screen name="StartScreen" component={StartScreen} options={{ headerShown: false }} />
               <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
               <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+              <Stack.Screen name="Homescreen" component={TabNavigator} options={{ headerShown: false }} />
             </>
           )
         }

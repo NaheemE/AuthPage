@@ -81,6 +81,7 @@ export default Products = () => {
                                 <FAIcons name='sliders' size={30} style={{ backgroundColor: '#c58b4e', color: 'white', padding: 10, borderRadius: 10 }} />
                             </View>
                         </LinearGradient>
+                        <Image source={PromoBanner} style={styles.banner} />
                     </View>
                 </LinearGradient>
                 {/* Bottom container */}
@@ -113,10 +114,10 @@ export default Products = () => {
                             renderItem={({ item, index }) => <Card details={item} key={index} />}
                             ListEmptyComponent={<Loader />}
                             numColumns={2}
+                            scrollEnabled={false}
                         />
                     </View>
                 </View>
-                <Image source={PromoBanner} style={styles.banner} />
             </ScrollView>
         </>
     )
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     banner: {
         position: 'absolute',
         alignSelf: 'center',
-        top: 250,
+        bottom: '-25%',
         width: '90%',
         borderRadius: 10
     },
