@@ -1,10 +1,10 @@
 import { StyleSheet, Text, Pressable } from 'react-native'
 import React from 'react'
 
-export default Btn = ({ children, onPress }) => {
+export default Btn = ({ title, onPress }) => {
   return (
-    <Pressable style={styles.button} onPress={onPress}>
-      <Text style={{ color: 'white', fontSize: 25, }}>{children}</Text>
+    <Pressable style={styles.button} onPress={onPress} android_ripple={{ color: '#bfbfbf', borderless: false }}>
+      <Text style={{ color: 'white', fontSize: 25, }}>{title}</Text>
     </Pressable>
   )
 }

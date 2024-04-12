@@ -1,44 +1,27 @@
 import { StyleSheet, Text, View, StatusBar, Pressable, Alert, ScrollView, Dimensions } from 'react-native'
 import Icons from 'react-native-vector-icons/AntDesign'
-import React, { useState } from 'react'
+import React from 'react'
 import Input from '../Components/Input'
 import Btn from '../Components/Btn'
 import { registerAPI } from '../Services/allAPI'
-
+import { FormProvider, useForm } from 'react-hook-form'
 
 export default Register = ({ navigation }) => {
 
-    const [details, setDetails] = useState({
-        name: '',
-        email: '',
-        phoneNumber: '',
-        password: '',
-        confirmPassword: ''
-    })
-
-    const handleInput = (key, value) => {
-        setDetails({ ...details, [key]: value })
-    }
-
-    const handleRegister = async () => {
-        const { name, email, phoneNumber, password, confirmPassword } = details
-        if (!name || !email || !phoneNumber || !password || !confirmPassword) {
-            Alert.alert('Please fill the form completely!')
+    const handleRegister = async (data) => {
+        const response = await registerAPI(data)
+        // console.log(response.data);
+        if (response.status === 200) {
+            Alert.alert('Registered successfully')
+            navigation.navigate('Login')
+        } else {
+            Alert.alert('Something went wrong!')
         }
-        else {
-            const response = await registerAPI(details)
-            // console.log(response.data);
-            if (response.status === 200) {
-                Alert.alert('Registered successfully')
-                navigation.navigate('Login')
-            } else {
-                Alert.alert('Something went wrong!')
-            }
-        }
-
     }
 
     const windowHeight = Dimensions.get('window').height
+
+    const formMethods = useForm()
 
     return (
         <ScrollView contentContainerStyle={{ height: windowHeight }} showsVerticalScrollIndicator={false}>
@@ -59,16 +42,17 @@ export default Register = ({ navigation }) => {
                 <View style={styles.bottom}>
                     {/* form */}
                     <View style={styles.form}>
-                        {/* textInputs */}
-                        <Input value={details.name} onChangeText={(value) => { handleInput('name', value) }}>Name</Input>
-                        <Input value={details.email} onChangeText={(value) => { handleInput('email', value) }}>Email</Input>
-                        <Input value={details.phoneNumber} onChangeText={(value) => { handleInput('phoneNumber', value) }}>Phone Number</Input>
-                        <Input value={details.password} secureTextEntry onChangeText={(value) => { handleInput('password', value) }}>Password</Input>
-                        <Input value={details.confirmPassword} secureTextEntry onChangeText={(value) => { handleInput('confirmPassword', value) }}>Confirm Password</Input>
+                        <FormProvider {...formMethods}>
+                            <Input label='Name' name='name' rules={{ required: 'Name cannot be empty!' }} />
+                            <Input label='Email' name='email' rules={{ required: 'Email cannot be empty!' }} />
+                            <Input label='Phone Number' name='phoneNumber' rules={{ required: 'Phone Number cannot be empty!' }} />
+                            <Input label='Password' name='password' rules={{ required: 'Password cannot be empty!' }} secureTextEntry />
+                            <Input label='Confirm Password' name='confirmPassword' rules={{ required: 'Confirm Password cannot be empty!' }} secureTextEntry />
+                        </FormProvider>
                     </View>
                     {/* button */}
                     <View style={styles.footer}>
-                        <Btn onPress={handleRegister}>Sign Up</Btn>
+                        <Btn title='Sign Up' onPress={formMethods.handleSubmit(handleRegister)} />
                         <Pressable onPress={() => navigation.navigate("Login")}>
                             <Text style={{ color: 'black', fontSize: 15, textAlign: 'center', paddingTop: 20 }}>You have an account? Log In</Text>
                         </Pressable>
@@ -78,7 +62,6 @@ export default Register = ({ navigation }) => {
         </ScrollView>
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {
