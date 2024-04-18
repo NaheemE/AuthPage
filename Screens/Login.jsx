@@ -12,16 +12,20 @@ const Login = ({ navigation }) => {
 
     const formMethods = useForm()
 
-    const handleLogin = async (data) => {
+    // const handleLogin = async (data) => {
 
-        const response = await loginAPI(data)
-        // console.log(response.data);
-        if (response.status === 200) {
-            Alert.alert('LoggedIn successfully')
-            navigation.navigate('Homescreen')
-        } else {
-            Alert.alert('Something went wrong!')
-        }
+    //     const response = await loginAPI(data)
+    //     // console.log(response.data);
+    //     if (response.status === 200) {
+    //         Alert.alert('LoggedIn successfully')
+    //         navigation.navigate('Homescreen')
+    //     } else {
+    //         Alert.alert('Something went wrong!')
+    //     }
+    // }
+
+    const handleLogin = (data) => {
+        navigation.navigate('Homescreen')
     }
 
     return (
